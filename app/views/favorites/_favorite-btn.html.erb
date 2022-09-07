@@ -1,11 +1,24 @@
-<% if book.favorited_by?(current_user) %>
-  <%= link_to book_favorites_path(book), remote: true, method: :delete do %>
-    <i class="fas fa-heart", style="color: red;"></i>
-    <span style="color: red;"><%= book.favorites.count %></span>
-  <% end %>
-<% else %>
-  <%= link_to book_favorites_path(book), remote: true, method: :post do %>
-    <i class="fas fa-heart"></i>
-    <%= book.favorites.count %>
-  <% end %>
+<% books.each do |book| %>
+  <tr>
+    <td><%= link_to(book.user) do %>
+      <%= image_tag book.user.get_profile_image, size:'100x67' %>
+      <% end %>
+    </td>
+    <td><%= link_to book.title,book %></td>
+    <td><%= book.body %></td>
+    <td>
+      <% if book.favorited_by?(current_user) %>
+        <%= link_to book_favorites_path(book), remote: true, method: :delete do %>
+          <i class="fas fa-heart", style="color: red;"></i>
+          <span style="color: red;"><%= book.favorites.count %></span>
+        <% end %>
+      <% else %>
+        <%= link_to book_favorites_path(book), remote: true, method: :post do %>
+          <i class="fas fa-heart"></i>
+          <%= book.favorites.count %>
+        <% end %>
+      <% end %>
+    </td>
+    <td>コメント数：<%= book.book_comments.count %></td>
+  </tr>
 <% end %>
