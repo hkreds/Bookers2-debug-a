@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-6">
-      <h2>CHAT WITH <%= @user.name %></h2>
+    <div>
+      <h2><%= @user.name %>さんとのチャット</h2>
       <table class="message table">
         <thead>
           <tr>
@@ -29,7 +29,8 @@
           <% end %>
         <% end %>
       </table>
-      <%= form_with model: @chat, remote: true do |f| %>
+      <%= render "layouts/errors", obj: @chat %>
+      <%= form_with model: @chat do |f| %>
         <%= f.text_field :message %>
         <%= f.hidden_field :room_id %>
         <%= f.submit "SEND", class:"btn btn-sm btn-success chat-btn" %>
