@@ -21,7 +21,6 @@ class ChatsController < ApplicationController
     @chat = current_user.chats.new(chat_params)
     if @chat.save
       redirect_to request.referer
-    
     end
   end
 
