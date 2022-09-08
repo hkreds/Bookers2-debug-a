@@ -21,6 +21,13 @@ class ChatsController < ApplicationController
     @chat = current_user.chats.new(chat_params)
     if @chat.save
       redirect_to request.referer
+    else
+      @user = User.joins(:user_rooms).where(user_rooms: {user_id: "params[:id]"})
+      rooms = current_user.user_rooms.pluck(:room_id)
+      user_rooms = UserRoom.find_by(room_id: rooms)
+      @room = user_rooms.room
+      @chats = @room.chats
+      render :show
     end
   end
 
